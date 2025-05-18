@@ -10,7 +10,7 @@ default and additional color schemes can also be configured.
 
 This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
 
-![coding dev illustration](./dev.svg)
+![coding dev illustration](/blog/dev.svg)
 
 ## Tech Stack
 
