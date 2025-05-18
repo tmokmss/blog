@@ -54,13 +54,14 @@ const structuredData = {
     <!-- enable google analytics -->
     <script
       is:inline
-      type="text/partytown"
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-1BPQG9WB5B"></script>
-    <script is:inline type="text/partytown">
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      // eslint-disable-next-line prefer-rest-params
-      function gtag() { dataLayer.push(arguments); }
+      function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        dataLayer.push(arguments);
+      }
       gtag("js", new Date());
       gtag("config", "G-1BPQG9WB5B");
     </script>
@@ -142,7 +143,8 @@ const structuredData = {
 
     <ClientRouter />
 
-    <script is:inline src={`${import.meta.env.BASE_URL}/toggle-theme.js`}></script>
+    <script is:inline src={`${import.meta.env.BASE_URL}/toggle-theme.js`}
+    ></script>
   </head>
   <body>
     <slot />
