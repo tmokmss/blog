@@ -18,8 +18,9 @@ const currentPath =
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
+  const idx = import.meta.env.BASE_URL != '/' ? 1 : 0;
 
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+  return currentPath === path || currentPathArray[idx] === pathArray[0];
 };
 ---
 
