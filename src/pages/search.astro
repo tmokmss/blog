@@ -57,7 +57,7 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
           return term;
         },
         baseUrl: import.meta.env.BASE_URL,
-        bundlePath: `${import.meta.env.BASE_URL}pagefind/`
+        bundlePath: `${import.meta.env.BASE_URL}pagefind/`,
       });
 
       // If search param exists (eg: search?q=astro), trigger search

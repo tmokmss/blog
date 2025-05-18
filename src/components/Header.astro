@@ -18,7 +18,7 @@ const currentPath =
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
-  const idx = import.meta.env.BASE_URL != '/' ? 1 : 0;
+  const idx = import.meta.env.BASE_URL != "/" ? 1 : 0;
 
   return currentPath === path || currentPathArray[idx] === pathArray[0];
 };
@@ -70,7 +70,10 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="./posts/" class:list={{ "active-nav": isActive("/posts") }}>
+            <a
+              href="./posts/"
+              class:list={{ "active-nav": isActive("/posts") }}
+            >
               Posts
             </a>
           </li>
@@ -80,7 +83,10 @@ const isActive = (path: string) => {
             </a>
           </li>
           <li class="col-span-2">
-            <a href="./about/" class:list={{ "active-nav": isActive("/about") }}>
+            <a
+              href="./about/"
+              class:list={{ "active-nav": isActive("/about") }}
+            >
               About
             </a>
           </li>

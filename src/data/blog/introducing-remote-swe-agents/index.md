@@ -8,6 +8,5 @@ featured: true
 draft: true
 tags:
   - docs
-description:
-  Self-host AI SWE agents with Devin or Codex like experience in your AWS account.
+description: Self-host AI SWE agents with Devin or Codex like experience in your AWS account.
 ---
