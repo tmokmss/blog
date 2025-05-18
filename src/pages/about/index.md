@@ -3,32 +3,27 @@ layout: ../../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
+Welcome to my personal tech blog! I'm Masashi Tomooka, a cloud enthusiast sharing my thoughts, experiences, and learnings in the tech world.
 
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
+## Disclaimer
 
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
+This blog is my personal space for sharing knowledge and insights. All opinions, content, and views expressed here are entirely my own and do not represent the views, policies, or positions of my employer or any organization I'm affiliated with.
 
-![coding dev illustration](/blog/dev.svg)
+## Contact
 
-## Tech Stack
+If you'd like to connect or have any questions about the content on this blog, please reach out to me via [LinkedIn](https://www.linkedin.com/in/masashi-tomooka-7782a81b0/) or [X](https://x.com/tmokmss). I'm always open to discussions and feedback!
 
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+## Open Source Contributions
 
-## Features
+I'm passionate about open source software and have contributed to various projects. For a complete list of my OSS projects and contributions, please visit my [GitHub profile](https://github.com/tmokmss).
 
-Here are certain features of this site.
+## Blog Focus
 
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
+This blog primarily focuses on:
 
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+- Cloud technologies and architecture
+- Software development best practices
+- Technical tutorials and guides
+- My experiences with new tools and technologies
+
+I hope you find the content here useful and informative. Happy reading!

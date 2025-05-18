@@ -4,14 +4,14 @@ export const SITE = {
   author: "Masashi Tomooka",
   profile: "https://github.com/tmokmss",
   desc: "A tech blog from a Cloud enthusiast.",
-  title: "AstroPaper",
+  title: "tmokmss/blog",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 5,
   postPerPage: 5,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
-  showBackButton: true, // show back button in post detail
+  showArchives: false,
+  showBackButton: false, // show back button in post detail
   editPost: {
     enabled: true,
     text: "Suggest Changes",
