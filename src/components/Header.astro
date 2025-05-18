@@ -40,7 +40,7 @@ const isActive = (path: string) => {
       class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6"
     >
       <a
-        href="/"
+        href={import.meta.env.BASE_URL}
         class="absolute py-1 text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
       >
         {SITE.title}
@@ -69,17 +69,17 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
+            <a href="./posts/" class:list={{ "active-nav": isActive("/posts") }}>
               Posts
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
+            <a href="./tags/" class:list={{ "active-nav": isActive("/tags") }}>
               Tags
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+            <a href="./about/" class:list={{ "active-nav": isActive("/about") }}>
               About
             </a>
           </li>
@@ -87,7 +87,7 @@ const isActive = (path: string) => {
             SITE.showArchives && (
               <li class="col-span-2">
                 <LinkButton
-                  href="/archives"
+                  href="./archives/"
                   class:list={[
                     "focus-outline flex justify-center p-3 sm:p-1",
                     {
@@ -105,7 +105,7 @@ const isActive = (path: string) => {
           }
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
-              href="/search"
+              href="./search/"
               class:list={[
                 "focus-outline flex p-3 sm:p-1",
                 { "[&>svg]:stroke-accent": isActive("/search") },
@@ -127,8 +127,8 @@ const isActive = (path: string) => {
                   aria-label="auto"
                   aria-live="polite"
                 >
-                  <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
                   <IconSunHigh class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                  <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
                 </button>
               </li>
             )
