@@ -43,16 +43,22 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       </a>
 
       <p>
-        Hello! I'm Masashi Tomooka, a cloud enthusiast and software engineer. This blog is where I share my technical insights, experiences, and learnings about cloud technologies, software development, and other tech topics that interest me. 
+        Hello! I'm Masashi Tomooka, a cloud enthusiast and software engineer.
+        This blog is where I share my technical insights, experiences, and
+        learnings about cloud technologies, software development, and other tech
+        topics that interest me.
       </p>
       <p class="mt-2">
-        All opinions and content on this blog are my own and do not represent the views of my employer or any organization I'm affiliated with.
+        All opinions and content on this blog are my own and do not represent
+        the views of my employer or any organization I'm affiliated with.
       </p>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
           <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">Connect with me:</div>
+            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">
+              Connect with me:
+            </div>
             <Socials />
           </div>
         )
