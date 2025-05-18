@@ -4,7 +4,13 @@ const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
 // Get url array from path
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
-const breadcrumbList = currentUrlPath.split("/").slice(1);
+// If BASE_URL is set (e.g. /blog/), we ignore the component
+// eg: /blog/tags/tailwindcss => ['tags', 'tailwindcss']
+const basePathCount = import.meta.env.BASE_URL.split("/").filter(
+  s => !!s
+).length;
+const headIndex = basePathCount == 0 ? 1 : 1 + basePathCount;
+const breadcrumbList = currentUrlPath.split("/").slice(headIndex);
 
 // if breadcrumb is Home > Posts > 1 <etc>
 // replace Posts with Posts (page number)
@@ -28,7 +34,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">Home</a>
+      <a href="./" class="opacity-80">Home</a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {

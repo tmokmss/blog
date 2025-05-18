@@ -14,11 +14,9 @@ pnpm install
 pnpm run dev
 ```
 
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
-
-> **_Note!_** For `Docker` commands we must have it [installed](https://docs.docker.com/engine/install/) in your machine.
 
 | Command                              | Action                                                                                                                           |
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
