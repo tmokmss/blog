@@ -13,8 +13,7 @@ tags:
   - Architecture
   - CDK
   - Lambda
-description:
-  An updated cost-effective and scalable serverless web application architecture on AWS.
+description: An updated cost-effective and scalable serverless web application architecture on AWS.
 ---
 
 Three years ago, I wrote an article about a cost-effective AWS architecture for hobby web application development. It was a trending topic at that time.
@@ -33,13 +32,13 @@ The reference implementation for the architecture described in this article is p
 
 The main features include:
 
-* Next.js App Router deployed on AWS Lambda
-* Response streaming supported by CloudFront + Lambda function URL
-* Type safety from client to server to database
-* Scale-to-zero RDBMS with Aurora Serverless V2
-* Asynchronous/Cron job mechanism with real-time notifications to clients
-* Cognito authentication and authorization (SSR-compatible)
-* One-command deployment with CDK
+- Next.js App Router deployed on AWS Lambda
+- Response streaming supported by CloudFront + Lambda function URL
+- Type safety from client to server to database
+- Scale-to-zero RDBMS with Aurora Serverless V2
+- Asynchronous/Cron job mechanism with real-time notifications to clients
+- Cognito authentication and authorization (SSR-compatible)
+- One-command deployment with CDK
 
 Let's dive deep into the architecture.
 
@@ -61,15 +60,15 @@ An alternative advanced setup is [cdklabs/cdk-nextjs](https://github.com/cdklabs
 
 This implementation uses the following libraries to achieve type safety from client to server to database:
 
-* [next-safe-action](https://github.com/TheEdoRan/next-safe-action)
-* [React Hook Form](https://github.com/react-hook-form/react-hook-form)
-* [Prisma](https://github.com/prisma/prisma)
+- [next-safe-action](https://github.com/TheEdoRan/next-safe-action)
+- [React Hook Form](https://github.com/react-hook-form/react-hook-form)
+- [Prisma](https://github.com/prisma/prisma)
 
 In the past, during the Page Router era, I created [a sample using tRPC](https://github.com/aws-samples/trpc-nextjs-ssr-prisma-lambda), but achieving end-to-end type safety has become even easier with the App Router. You can directly query the database during page rendering, and mutations are straightforward with Server Actions. While tRPC might be more convenient for client queries, Server Actions can still handle them (because they can be [executed and their results retrieved](https://next-safe-action.dev/docs/execute-actions/hooks/useaction) from client-side JavaScript).
 
 Using raw Server Actions can make authentication and authorization processes cumbersome. To simplify these processes with middleware-like functionality, I'm using next-safe-action. You just need to [create an Action Client](https://next-safe-action.dev/docs/define-actions/create-the-client) with authentication and authorization implemented, and then use it to define Server Actions. It feels similar to [tRPC procedures](https://trpc.io/docs/server/procedures).
 
-Another advantage of next-safe-action is its easy integration with React Hook Form. You can use the [adapter-react-hook-form](https://github.com/next-safe-action/adapter-react-hook-form) library for simple integration ([code example](https://github.com/aws-samples/serverless-full-stack-webapp-starter-kit/blob/ae718df5303050100b161d8ab03935e78894feb0/webapp/src/app/(root)/components/CreateTodoForm.tsx#L24-L46)).
+Another advantage of next-safe-action is its easy integration with React Hook Form. You can use the [adapter-react-hook-form](https://github.com/next-safe-action/adapter-react-hook-form) library for simple integration ([code example](<https://github.com/aws-samples/serverless-full-stack-webapp-starter-kit/blob/ae718df5303050100b161d8ab03935e78894feb0/webapp/src/app/(root)/components/CreateTodoForm.tsx#L24-L46>)).
 [Conform](https://conform.guide/) is also popular for form and Server Action integration, but I prefer to maintain the familiar React Hook Form experience.
 
 ### Benefits of Serverless
@@ -136,16 +135,16 @@ Alternatively, there's [Aurora DSQL](https://aws.amazon.com/rds/aurora/dsql/), w
 
 This architecture is affected by the cold start times of Lambda and Aurora. When accessing from an idle state, you can expect approximately the following wait times:
 
-* Lambda: 1-3 seconds
-* Aurora: About 10 seconds
+- Lambda: 1-3 seconds
+- Aurora: About 10 seconds
 
 This isn't a serious problem for applications with frequent access, but for applications with infrequent access (less than once every 5 minutes), there's a risk of user experience degradation due to cold starts on every access.
 Unlike SPAs or static file delivery from S3, the page won't render at all until Lambda starts, which can cause anxiety for users.
 
 Potential mitigation strategies for cold start issues include:
 
-* Lambda: Set up a warmer to periodically (every 2 minutes, etc.) send requests to Lambda (cheaper than provisioned concurrency)
-* Aurora: Adjust parameters related to auto-stopping (such as extending the time before transitioning to the stopped state)
+- Lambda: Set up a warmer to periodically (every 2 minutes, etc.) send requests to Lambda (cheaper than provisioned concurrency)
+- Aurora: Adjust parameters related to auto-stopping (such as extending the time before transitioning to the stopped state)
 
 These issues are less problematic with moderate access frequency but are worth considering.
 
