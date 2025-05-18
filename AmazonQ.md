@@ -30,6 +30,7 @@ description:
 
 4. After the metadata, write the article in markdown format. You can also attach images with `![alt text](./images/sample.png)'` notation. Create image files in the same directory as `index.md`.
 5. After finished writing the article, submit a GitHub Pull Request. Use English for both PR title and description. Also, please attach the preview image of the article (screenshot of a browser screen) in the PR. To get the screenshot, see the next section.
+6. Make sure the CI status of the PR passing.
 
 ## How to preview the article
 

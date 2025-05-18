@@ -1,7 +1,7 @@
 ---
 author: Masashi Tomooka
-pubDatetime: 2025-05-18T08:00:00Z
-modDatetime: 2025-05-18T08:00:00Z
+pubDatetime: 2025-05-17T08:00:00Z
+modDatetime: 2025-05-17T08:00:00Z
 title: Serverless Full-stack Web Application Architecture in 2025
 slug: serverless-fullstack-webapp-architecture-2025
 featured: true
@@ -11,13 +11,15 @@ tags:
   - Serverless
   - Next.js
   - Architecture
+  - CDK
+  - Lambda
 description:
   An updated cost-effective and scalable serverless web application architecture on AWS.
 ---
 
 Three years ago, I wrote an article about a cost-effective AWS architecture for hobby web application development. It was a trending topic at that time.
 
-[Building Hobby Web Services with Serverless — Budget Edition](https://tmokmss.hatenablog.com/entry/20220611/1654931458)
+[Building Hobby Web Services with Serverless — A Poor Man's Guide](https://tmokmss.hatenablog.com/entry/20220611/1654931458)
 
 Recently, AWS has introduced many new services, allowing us to create architectures that are quite different from before. In this article, I'll introduce an updated cost-effective and scalable web application architecture for AWS.
 
@@ -116,7 +118,7 @@ An alternative solution would be to use the [next-runtime-env](https://github.co
 
 A cost breakdown table is [summarized in the README](https://github.com/aws-samples/serverless-full-stack-webapp-starter-kit?tab=readme-ov-file#cost). The estimate is $8.50 per month for 100 users. Of course, this is a rough estimate, and actual values will depend on your use case.
 
-Also, the above does not include free tiers. If you can fully utilize the free tier, many services like Cognito, Lambda, and NAT Instance would fall within the free range, resulting in costs under $5 per month.
+A good news is that, the above does not include free tiers. If you can fully utilize the free tier, many services like Cognito, Lambda, and NAT Instance would fall within the free range, resulting in costs under $5 per month.
 
 ## Drawbacks of This Architecture
 
@@ -161,11 +163,9 @@ While I've introduced my own sample implementation, AWS provides several other m
 
 [Amplify Gen2](https://docs.amplify.aws/) can also be a good starting point. I personally prefer plain CDK, which is why I created the sample implementation above, but this is a matter of preference.
 
-Recently, my Australian colleague published a tool called [NX plugin for AWS](https://github.com/awslabs/nx-plugin-for-aws). While there are implementation differences—such as using TanStack Router and tRPC, or offering Python Fast API as an option—the goal of enhancing the web application development experience is the same.
+Recently, my Australian colleague published a tool called [NX plugin for AWS](https://github.com/awslabs/nx-plugin-for-aws). While there are implementation differences —such as using TanStack Router and tRPC, or offering Python Fast API as an option— the goal of enhancing the web application development experience is the same.
 
-[awslabs.github.io](https://awslabs.github.io/nx-plugin-for-aws/jp/)
-
-It was created by the same team as [AWS PDK](https://github.com/aws/aws-pdk), and they've applied the lessons learned from PDK. Japanese documentation is also available, so please try it out: [Quick Start Guide | @aws/nx-plugin](https://awslabs.github.io/nx-plugin-for-aws/jp/get_started/quick-start/)
+It was created by the same team as [AWS PDK](https://github.com/aws/aws-pdk), and they've applied the lessons learned from PDK. The documentation is available in various languages including Japanese or Spanish, so worth take a look: [Quick Start Guide | @aws/nx-plugin](https://awslabs.github.io/nx-plugin-for-aws/en/get_started/quick-start/)
 
 ## Conclusion
 
