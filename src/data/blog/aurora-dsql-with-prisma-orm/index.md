@@ -11,8 +11,7 @@ tags:
   - Backend
   - Development
   - Lambda
-description:
-  How to use Amazon Aurora DSQL, the next-generation serverless RDB, with Prisma ORM for TypeScript.
+description: How to use Amazon Aurora DSQL, the next-generation serverless RDB, with Prisma ORM for TypeScript.
 ---
 
 This article discusses how to use [Aurora DSQL](https://aws.amazon.com/blogs/aws/introducing-amazon-aurora-dsql/), the next-generation serverless RDB, with [Prisma](https://www.prisma.io/), an ORM for TypeScript. I want to start using DSQL more!
@@ -48,7 +47,7 @@ import { DsqlSigner } from '@aws-sdk/dsql-signer';
 const hostname = 'example.dsql.us-east-1.on.aws';
 const signer = new DsqlSigner({
   hostname,
-  expiresIn: 24 * 3600 * 7, 
+  expiresIn: 24 * 3600 * 7,
 });
 const token = await signer.getDbConnectAdminAuthToken();
 const url = `postgres://admin:${encodeURIComponent(token)}@${hostname}:5432/postgres`;
@@ -81,8 +80,8 @@ async function generateToken() {
 
 export const getClient = async () => {
   const token = await generateToken();
-  process.env.DATABASE_URL = `postgres://admin:${encodeURIComponent(token)}@${hostname}:5432/postgres`; 
-  
+  process.env.DATABASE_URL = `postgres://admin:${encodeURIComponent(token)}@${hostname}:5432/postgres`;
+
   return new PrismaClient();
 };
 
@@ -98,12 +97,12 @@ const main = async () => {
 I think this is the most straightforward approach. The drawbacks compared to conventional usage are:
 
 1. You need to get PrismaClient through an asynchronous function
-   * If using static environment variables, you could simply get it as a variable, so the usability changes somewhat
-   * Example: `await prisma.user.findMany` → `await (await getClient()).user.findMany`, etc.
+   - If using static environment variables, you could simply get it as a variable, so the usability changes somewhat
+   - Example: `await prisma.user.findMany` → `await (await getClient()).user.findMany`, etc.
 2. You need to handle reconnections
-   * When the token expires, you won't be able to establish new connections to the database (existing connections seem to remain usable)
-   * Therefore, you need to reinitialize PrismaClient before the token expires
-   * Note that you can specify a token expiration up to one week, so this might not be a concern in relatively short-lived runtimes like AWS Lambda
+   - When the token expires, you won't be able to establish new connections to the database (existing connections seem to remain usable)
+   - Therefore, you need to reinitialize PrismaClient before the token expires
+   - Note that you can specify a token expiration up to one week, so this might not be a concern in relatively short-lived runtimes like AWS Lambda
 
 For reference, here's code that handles reconnections (only the `getClient` function is shown):
 
@@ -112,7 +111,7 @@ let client: PrismaClient | undefined = undefined;
 let lastEstablieshedAt = 0;
 export const getClient = async () => {
   if (client) {
-    
+
     if (Date.now() - lastEstablieshedAt < 1 * 3600 * 1000) {
       return client;
     } else {
@@ -131,7 +130,7 @@ By the way, if you can use top-level await, you can export the PrismaClient itse
 
 ```
 const getClient = async () => {
-  
+
   return new PrismaClient();
 };
 
@@ -157,13 +156,13 @@ The advantage of this approach is that, from Prisma's perspective, the database 
 
 However, potential disadvantages include:
 
-* Some organizations may not recommend writing authentication information directly into Lambda environment variables
-  + Reference: [Securing Lambda environment variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars-encryption.html)
-* Cold starts occur every time the token is updated
-  + But since this would only happen every few hours, the impact may not be significant
-* The implementation and management of the token update mechanism are required
-  + It's similar to authentication information rotation mechanisms; once created, it's almost maintenance-free, but there is some initial hassle
-  + Reusable modules like CDK constructs would be helpful
+- Some organizations may not recommend writing authentication information directly into Lambda environment variables
+  - Reference: [Securing Lambda environment variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars-encryption.html)
+- Cold starts occur every time the token is updated
+  - But since this would only happen every few hours, the impact may not be significant
+- The implementation and management of the token update mechanism are required
+  - It's similar to authentication information rotation mechanisms; once created, it's almost maintenance-free, but there is some initial hassle
+  - Reusable modules like CDK constructs would be helpful
 
 Nevertheless, the simplicity of the application-side implementation is certainly appealing.
 
@@ -174,7 +173,7 @@ In Prisma for PostgreSQL, you can [replace the DB driver with node-postgres (pg)
 ```
 generator client {
   provider = "prisma-client-js"
-  
+
   previewFeatures = ["driverAdapters"]
 }
 
@@ -214,14 +213,14 @@ Upon reflection, this issue is not unique to DSQL.
 
 Developers have likely faced the same problem in scenarios such as:
 
-* Connecting using [IAM authentication for RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.html)
-* Retrieving DB credentials from external stores instead of environment variables
-* Rotating DB credentials in Secrets Manager or similar services
+- Connecting using [IAM authentication for RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.html)
+- Retrieving DB credentials from external stores instead of environment variables
+- Rotating DB credentials in Secrets Manager or similar services
 
 This problem has been reported in Prisma for over three years, but it seems it hasn't been resolved yet:
 
-* [Dynamic Connection Settings #7869](https://github.com/prisma/prisma/issues/7869)
-* [Support for AWS Secrets Manager or Azure KeyVault in schema.prisma #7534](https://github.com/prisma/prisma/issues/7534)
+- [Dynamic Connection Settings #7869](https://github.com/prisma/prisma/issues/7869)
+- [Support for AWS Secrets Manager or Azure KeyVault in schema.prisma #7534](https://github.com/prisma/prisma/issues/7534)
 
 One Prisma-specific challenge [mentioned](https://github.com/prisma/prisma/issues/7869#issuecomment-982418375) is that since the query engine is written in Rust, it's difficult to execute async functions written in JavaScript to retrieve passwords. Recently, there's been [talk of migrating Prisma's Rust components to TypeScript](https://www.prisma.io/blog/prisma-orm-manifesto#4-enabling-community-extension-and-collaboration) (in a completely different context), so there might be some hope there.
 

@@ -6,10 +6,7 @@ import { joinPaths } from "node_modules/astro/dist/core/path";
  * @param includeBase - whether to include `/posts` in return value
  * @returns blog post path
  */
-export function getPath(
-  id: string,
-  includeBase = true
-) {
+export function getPath(id: string, includeBase = true) {
   const basePath = includeBase
     ? joinPaths(import.meta.env.BASE_URL, "posts")
     : "";
