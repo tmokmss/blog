@@ -131,6 +131,6 @@ If you have a use case, please give it a try.
 
 Here's Mona, who values her personal space.
 
-![Mona the cat](./images/mona-cat.jpg)
+![Mona the Java sparrow](./images/mona-bird.jpg)
 
 I'd love to nestle in that parting line of feathers on her belly.
