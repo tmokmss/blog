@@ -1,6 +1,6 @@
 # tmokmss/blog
 
-My tech blog written in English. Most content will be the translation from [my Japanse blog](https://tmokmss.hatenablog.com/). All the texts are carefully reviewed.
+My tech blog written in English. Most content will be the translation from [my Japanese blog](https://tmokmss.hatenablog.com/). All the texts are carefully reviewed.
 
 ## Run Locally
 
