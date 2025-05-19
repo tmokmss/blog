@@ -11,8 +11,7 @@ tags:
   - S3
   - Backend
   - Distributed Systems
-description:
-  Exploring how to implement distributed locks using Amazon S3's new conditional write feature, with a comparison to DynamoDB-based implementations.
+description: Exploring how to implement distributed locks using Amazon S3's new conditional write feature, with a comparison to DynamoDB-based implementations.
 ---
 
 Recently, Amazon S3 released a conditional write feature. In this article, we'll explore implementing distributed locks using this new capability.
@@ -21,7 +20,7 @@ Recently, Amazon S3 released a conditional write feature. In this article, we'll
 
 ## What are Distributed Locks?
 
-A distributed lock is a mechanism necessary for implementing mutual exclusion in distributed environments. It provides the functionality of a [lock](https://en.wikipedia.org/wiki/Lock_(computer_science)), but with the distinctive feature of being accessible from distributed environments[^1].
+A distributed lock is a mechanism necessary for implementing mutual exclusion in distributed environments. It provides the functionality of a [lock](<https://en.wikipedia.org/wiki/Lock_(computer_science)>), but with the distinctive feature of being accessible from distributed environments[^1].
 
 [Redis-based implementations](https://redis.io/docs/latest/develop/use/patterns/distributed-locks/) are well-known, but for AWS-native implementations, DynamoDB is commonly used. (Implementation examples: [DynamoDBLockClient](https://aws.amazon.com/blogs/database/building-distributed-locks-with-the-dynamodb-lock-client/), [Powertools for Lambda](https://docs.powertools.aws.dev/lambda/typescript/latest/utilities/idempotency/))
 
@@ -47,31 +46,31 @@ Since S3's conditional write feature has [strong consistency](https://aws.amazon
 Let's look at an example of implementing distributed locks with S3 using TypeScript. The following example shows 100 tasks competing for a lock:
 
 ```ts
-import { S3 } from '@aws-sdk/client-s3';
-import { setTimeout } from 'timers/promises';
+import { S3 } from "@aws-sdk/client-s3";
+import { setTimeout } from "timers/promises";
 
 const s3 = new S3();
-const key = '.lock';
+const key = ".lock";
 const bucket = process.env.BUCKET;
 
 const task = async (id: number) => {
   while (true) {
     // Vary timing between tasks
     await setTimeout(Math.random() * 500 + 500);
-    
+
     try {
       // Try to acquire the lock
       await s3.putObject({
         Bucket: bucket,
         Key: key,
-        IfNoneMatch: '*',
-        Body: '\n',
+        IfNoneMatch: "*",
+        Body: "\n",
       });
     } catch (e) {
       // Failed to acquire the lock, retry
       continue;
     }
-    
+
     // Lock acquired successfully
     console.log(`acquired lock ${id}`);
     // Main process (just sleep in this example)
