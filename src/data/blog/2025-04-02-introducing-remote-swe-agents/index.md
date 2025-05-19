@@ -10,7 +10,7 @@ tags:
   - GenAI
   - Devin
   - Bedrock
-description: Self-host AI SWE agents with a Devin or Codex like experience in your AWS account.
+description: Self-host AI SWE agents with Devin or Codex like experience in your AWS account.
 ---
 
 The collaborative AI teammate for software development, [Devin](https://devin.ai/), has been attracting a lot of attention. [Study sessions in the Japanese community](https://findy.connpass.com/event/344270/) have exceeded 1,000 participants! In this article, I'll introduce a self-hosted solution that achieves Devin-like functionality that I've developed.
