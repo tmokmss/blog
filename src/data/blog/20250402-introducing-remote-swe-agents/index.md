@@ -19,7 +19,7 @@ The collaborative AI teammate for software development, [Devin](https://devin.ai
 
 I've released the source code (IaC + Agent + Bolt app) here:
 
-[github.com - aws-samples/remote-swe-agents: Autonomous SWE agent working in the cloud!](https://github.com/aws-samples/remote-swe-agents)
+[aws-samples/remote-swe-agents: Autonomous SWE agent working in the cloud!](https://github.com/aws-samples/remote-swe-agents)
 
 Key features include:
 
@@ -31,8 +31,6 @@ Key features include:
 - Automatic loading of repository-specific knowledge from `.clinerules` and `CLAUDE.md`
 
 Anyone with an AWS account, GitHub account, and Slack workspace can use it, so please give it a try!
-
-![Demo of the system in action](./images/demo.jpg)
 
 ## Background
 
