@@ -8,7 +8,7 @@ It uses Astro to generate the assets, and GitHub Pages to serve them.
 You can add a blog article with the following steps:
 
 1. Fork and clone the repo and create a new git branch.
-2. Create a sub-directory in `src/data/blog`. The directory name should be the article's slag (this will be in the URL of the article).
+2. Create a sub-directory in `src/data/blog`. The directory name should include the publication date and a brief title (kebab-cased).
 3. In the directory, create `index.md`. The file should contain metadata in the below schema:
 
 ```
