@@ -48,3 +48,4 @@ And then you can open `http://localhost:4321/blog/` to access the preview page.
 * The markdown code block("```") should prefix the code type for syntax highlight. (e.g. js, ts, py, dockerfile, etc.)
 * Image block should contain alt text (e.g. `![image description](./images/foo.png)`.)
 * When using footnote, Add notation like `[^1]` to where you want to add a note, and add `[^1]: bla bla` at the final part of the markdown.
+* When you translate an existing article, ALWAYS download the original image via url. DO NOT use screenshot; it makes the image quality bad.
