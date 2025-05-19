@@ -3,7 +3,7 @@ author: Masashi Tomooka
 pubDatetime: 2024-03-07T22:00:00Z
 title: Building SOCI Index with AWS CDK
 slug: build-soci-index-with-aws-cdk
-featured: true
+featured: false
 draft: false
 tags:
   - AWS
