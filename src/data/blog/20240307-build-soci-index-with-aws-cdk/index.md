@@ -139,4 +139,3 @@ SOCI indexes were discussed at yesterday's JAWS container branch meeting, which 
 > Here are today's materials <https://t.co/hFDDmTRP89>[#jawsug_ct](https://twitter.com/hashtag/jawsug_ct?src=hash&ref_src=twsrc%5Etfw)
 >
 > — takahash (@\_takahash) [March 7, 2024](https://twitter.com/_takahash/status/1765693886956220593?ref_src=twsrc%5Etfw)
-
