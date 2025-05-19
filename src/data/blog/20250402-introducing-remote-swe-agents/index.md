@@ -32,9 +32,9 @@ Remote SWE Agents is a self-hosted solution that provides (Devin | OpenAI Codex)
 
 Some of the agent sessions by Remote SWE agents:
 
-| Example 1 | Example 2 | Example 3 |
-|:--------:|:--------:|:--------:|
-| ![example1](./images/example1.png) | ![example2](./images/example2.png) | ![example3](./images/example3.png) |
+|                                              Example 1                                              |                                                                                                                                    Example 2                                                                                                                                    |                      Example 3                      |
+| :-------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
+|                                 ![example1](./images/example1.png)                                  |                                                                                                                       ![example2](./images/example2.png)                                                                                                                        |         ![example3](./images/example3.png)          |
 | Instruct via GitHub issue. [Resulting PR](https://github.com/aws-samples/remote-swe-agents/pull/17) | single instruction to multiple repos [PR#1](https://github.com/aws-samples/trpc-nextjs-ssr-prisma-lambda/pull/16), [PR#2](https://github.com/aws-samples/prisma-lambda-cdk/pull/37), [PR#3](https://github.com/aws-samples/distributed-load-testing-with-locust-on-ecs/pull/25) | The agent can also input and output images as well. |
 
 Here's what the AWS architecture looks like:
