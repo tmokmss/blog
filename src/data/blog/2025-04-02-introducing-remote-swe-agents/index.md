@@ -33,7 +33,7 @@ Key features include:
 
 Anyone with an AWS account, GitHub account, and Slack workspace can use it, so please give it a try!
 
-![Demo of the system in action](./images/demo.jpeg)
+![Demo of the system in action](./images/demo.jpg)
 
 ## Background
 
@@ -51,7 +51,7 @@ With these motivations, I managed to bring it to a releasable level! I've been d
 
 Here's what the AWS architecture looks like:
 
-![AWS Architecture diagram](./images/architecture.jpeg)
+![AWS Architecture diagram](./images/architecture.png)
 
 It's essentially a serverless architecture with zero fixed costs. A Slack Bolt app running on APIGW+Lambda receives user messages and, when necessary, launches EC2 instances where the agents operate. Each agent has its own dedicated instance, so work environments are completely isolated.
 
@@ -105,11 +105,11 @@ Personally, I prefer cloud-based agents like Devin over locally-running agents. 
 
 Additionally, cloud-based agents make parallelization easy. Ideally, development agents could save time as illustrated below:
 
-![Ideal time-saving scenario with parallel agents](./images/ideal-scenario.jpeg)
+![Ideal time-saving scenario with parallel agents](./images/ideal-scenario.png)
 
 However, many tasks still don't complete in one pass, so the situation below is also realistic (where there's little difference from doing everything yourself!):
 
-![Reality of agent assistance today](./images/reality-scenario.jpeg)
+![Reality of agent assistance today](./images/reality-scenario.png)
 
 From my experience so far, the odds of getting good results by carelessly delegating tasks are not high (this is true even with Devin), so I think we should aim for something closer to the ideal scenario above (though not everything will be green). I personally believe in "writing is thinking," so I have a bias toward thinking that I can't organize my thoughts without writing.
 
@@ -119,4 +119,4 @@ That said, local agents (like Cline) and cloud-based agents aren't mutually excl
 
 So that was my experience creating a Devin-like cloud-based autonomous development agent! I gained many more technical insights that I hope to share elsewhere!
 
-![Mona-chan, sleepy after her Nth egg-laying and in the middle of molting](./images/mona-chan.jpeg)
+![Mona-chan, sleepy after her Nth egg-laying and in the middle of molting](./images/mona-chan.jpg)
