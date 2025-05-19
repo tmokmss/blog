@@ -104,11 +104,11 @@ Cross-region AWS service usage was once a niche area only advanced users venture
 
 [aws.amazon.com](https://aws.amazon.com/jp/blogs/news/bleafsi-update-v1-3-0/)
 
-In the implementation sample above, Step Functions are used to automate cross-region failover. This required cross-region API calls (such as modifying parameters in each region). This mechanism is also useful for calling [Route53 Application Recovery Controller](https://docs.aws.amazon.com/routing-control/latest/APIReference/API_UpdateRoutingControlState.html), which requires specifying redundant endpoints for API calls\*¹.
+In the implementation sample above, Step Functions are used to automate cross-region failover. This required cross-region API calls (such as modifying parameters in each region). This mechanism is also useful for calling [Route53 Application Recovery Controller](https://docs.aws.amazon.com/routing-control/latest/APIReference/API_UpdateRoutingControlState.html), which requires specifying redundant endpoints for API calls[^1].
 
 ![BLEA FSI implementation](./images/blea-fsi.png)
 
-\*¹ You need to call one of the endpoints distributed across multiple regions. I think this is a very unique service within AWS.
+[^1]: You need to call one of the endpoints distributed across multiple regions. I think this is a very unique service within AWS.
 
 ### Cross-Region for Bedrock
 
