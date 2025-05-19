@@ -10,8 +10,7 @@ tags:
   - CDK
   - Container
   - ECS
-description:
-  How to build and push SOCI index during CDK deployment for faster container startup times.
+description: How to build and push SOCI index during CDK deployment for faster container startup times.
 ---
 
 **TL;DR;**
@@ -23,11 +22,13 @@ npm install deploy-time-build
 ```
 
 ```typescript
-import { SociIndexBuild } from 'deploy-time-build';
+import { SociIndexBuild } from "deploy-time-build";
 
-const asset = new DockerImageAsset(this, 'Image', { directory: 'example-image' });
+const asset = new DockerImageAsset(this, "Image", {
+  directory: "example-image",
+});
 
-SociIndexBuild.fromDockerImageAsset(this, 'Index', asset);
+SociIndexBuild.fromDockerImageAsset(this, "Index", asset);
 ```
 
 ## Introduction
@@ -48,13 +49,12 @@ According to this post, SOCI is particularly effective for larger images (25% sp
 To use this feature, you need to build a SOCI index for your container image and push it to the same ECR repository. There are primarily two methods available, each with their own characteristics [^1]:
 
 1. Using the [soci-snapshotter CLI](https://github.com/awslabs/soci-snapshotter)
-   * ✅ Simple CLI interface that's easy to integrate with other pipelines
-   * ❌ Linux-only support, requires containerd, and has specific execution environment requirements
-   
+   - ✅ Simple CLI interface that's easy to integrate with other pipelines
+   - ❌ Linux-only support, requires containerd, and has specific execution environment requirements
 2. Using the [cfn-ecr-aws-soci-index-builder solution](https://aws-ia.github.io/cfn-ecr-aws-soci-index-builder/)
-   * ✅ Can be set up with a single CloudFormation template
-   * ❌ Index is pushed asynchronously, so it might not be available when your task executes
-   * ❌ Index is built on Lambda, limiting the container image size you can work with
+   - ✅ Can be set up with a single CloudFormation template
+   - ❌ Index is pushed asynchronously, so it might not be available when your task executes
+   - ❌ Index is built on Lambda, limiting the container image size you can work with
 
 Both options are somewhat cumbersome, which is why many developers might have seen benchmark results and decided it's not worth the trouble to implement.
 
@@ -73,35 +73,37 @@ By specifying an image tag and ECR repository, you can build an index for the im
 Here's an example that adds an index to an image with the tag `someTag` in an ECR repository named `someRepository`:
 
 ```typescript
-import { Repository } from 'aws-cdk-lib/aws-ecr';
-import { SociIndexBuild } from 'deploy-time-build';
+import { Repository } from "aws-cdk-lib/aws-ecr";
+import { SociIndexBuild } from "deploy-time-build";
 
-new SociIndexBuild(this, 'Index', {
-    imageTag: 'someTag', 
-    repository: Repository.fromRepositoryName(this, "Repo", "someRepository") 
+new SociIndexBuild(this, "Index", {
+  imageTag: "someTag",
+  repository: Repository.fromRepositoryName(this, "Repo", "someRepository"),
 });
 ```
 
 In practice, you'll often want to add an index to a CDK `DockerImageAsset`. This is also easy to write. The following example builds the Dockerfile in the `example-image` directory and adds an index to that image:
 
 ```typescript
-import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
+import { DockerImageAsset } from "aws-cdk-lib/aws-ecr-assets";
 
-const asset = new DockerImageAsset(this, 'Image', { directory: 'example-image' });
-SociIndexBuild.fromDockerImageAsset(this, 'Index', asset);
+const asset = new DockerImageAsset(this, "Image", {
+  directory: "example-image",
+});
+SociIndexBuild.fromDockerImageAsset(this, "Index", asset);
 ```
 
 When referencing container images from the CDK ECS module, you'll often use the `AssetImage` class. In that case, you can create an `AssetImage` from a previously defined `DockerImageAsset`:
 
 ```typescript
-import { AssetImage } from 'aws-cdk-lib/aws-ecs';
+import { AssetImage } from "aws-cdk-lib/aws-ecs";
 const assetImage = AssetImage.fromDockerImageAsset(asset);
 ```
 
 You might not want to deploy your ECS service when the SOCI index hasn't been pushed yet. In that case, you can set up a dependency relationship for the ECS service resource:
 
 ```typescript
-import { FargateService } from 'aws-cdk-lib/aws-ecs';
+import { FargateService } from "aws-cdk-lib/aws-ecs";
 const service = new FargateService();
 const index = SociIndexBuild.fromDockerImageAsset();
 
@@ -139,7 +141,7 @@ I've introduced a CDK construct library to easily deploy SOCI indexes from AWS C
 
 SOCI indexes were discussed at yesterday's JAWS container branch meeting, which motivated me to finish this article that I had started six months ago. Thank you!
 
-> Here are today's materials <https://t.co/hFDDmTRP89>[#jawsug\_ct](https://twitter.com/hashtag/jawsug_ct?src=hash&ref_src=twsrc%5Etfw)
+> Here are today's materials <https://t.co/hFDDmTRP89>[#jawsug_ct](https://twitter.com/hashtag/jawsug_ct?src=hash&ref_src=twsrc%5Etfw)
 >
 > — takahash (@\_takahash) [March 7, 2024](https://twitter.com/_takahash/status/1765693886956220593?ref_src=twsrc%5Etfw)
 
