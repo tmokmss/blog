@@ -10,8 +10,7 @@ tags:
   - AWS
   - CDK
   - Step Functions
-description:
-  How to call AWS APIs across regions from Step Functions using a new AWS CDK construct.
+description: How to call AWS APIs across regions from Step Functions using a new AWS CDK construct.
 ---
 
 This is an article in the [AWS CDK Tips series](https://tmokmss.hatenablog.com/entry/aws_cdk_tips).
@@ -25,15 +24,15 @@ Recently, I had a new feature merged into AWS CDK, so I'd like to introduce it. 
 With the following code, you can implement a Step Functions task to call cross-region AWS APIs (available from CDK v2.148.0):
 
 ```typescript
-const getObject = new tasks.CallAwsServiceCrossRegion(this, 'GetObject', {
-  region: 'us-west-2',  
-  service: 's3',
-  action: 'getObject',
+const getObject = new tasks.CallAwsServiceCrossRegion(this, "GetObject", {
+  region: "us-west-2",
+  service: "s3",
+  action: "getObject",
   parameters: {
     Bucket: myBucket.bucketName,
-    Key: sfn.JsonPath.stringAt('$.key')
+    Key: sfn.JsonPath.stringAt("$.key"),
   },
-  iamResources: [myBucket.arnForObjects('*')],
+  iamResources: [myBucket.arnForObjects("*")],
 });
 ```
 
@@ -63,23 +62,23 @@ Its usage is almost the same as the existing `CallAwsService` construct, but wit
 Here's a code example:
 
 ```typescript
-import * as sfn from 'aws-cdk-lib/aws-stepfunctions';
-import * as tasks from 'aws-cdk-lib/aws-stepfunctions-tasks';
+import * as sfn from "aws-cdk-lib/aws-stepfunctions";
+import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 
 declare const table: ITable;
 
-const deleteTable = new tasks.CallAwsServiceCrossRegion(this, 'DeleteTable', {
-  service: 'dynamodb',
-  action: 'deleteTable',
+const deleteTable = new tasks.CallAwsServiceCrossRegion(this, "DeleteTable", {
+  service: "dynamodb",
+  action: "deleteTable",
   parameters: {
     TableName: table.tableName,
   },
   iamResources: [table.tableArn],
-  
-  region: 'us-east-2',
+
+  region: "us-east-2",
 });
 
-new sfn.StateMachine(this, 'StateMachine', {
+new sfn.StateMachine(this, "StateMachine", {
   definition: deleteTable,
 });
 ```
@@ -106,11 +105,11 @@ Cross-region AWS service usage was once a niche area only advanced users venture
 
 [aws.amazon.com](https://aws.amazon.com/jp/blogs/news/bleafsi-update-v1-3-0/)
 
-In the implementation sample above, Step Functions are used to automate cross-region failover. This required cross-region API calls (such as modifying parameters in each region). This mechanism is also useful for calling [Route53 Application Recovery Controller](https://docs.aws.amazon.com/routing-control/latest/APIReference/API_UpdateRoutingControlState.html), which requires specifying redundant endpoints for API calls*¹.
+In the implementation sample above, Step Functions are used to automate cross-region failover. This required cross-region API calls (such as modifying parameters in each region). This mechanism is also useful for calling [Route53 Application Recovery Controller](https://docs.aws.amazon.com/routing-control/latest/APIReference/API_UpdateRoutingControlState.html), which requires specifying redundant endpoints for API calls\*¹.
 
 ![BLEA FSI implementation](./images/blea-fsi.png)
 
-*¹ You need to call one of the endpoints distributed across multiple regions. I think this is a very unique service within AWS.
+\*¹ You need to call one of the endpoints distributed across multiple regions. I think this is a very unique service within AWS.
 
 ### Cross-Region for Bedrock
 
