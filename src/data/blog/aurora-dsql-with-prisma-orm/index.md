@@ -146,11 +146,11 @@ The second approach is to treat the dynamic token as a static one. This could be
 Create a Lambda that retrieves tokens and overwrites the environment variables of the main application (also assumed to be running on Lambda).
 Call this Lambda periodically before the token expires.
 
-![](./images/diagram1_final.png)
+![](./images/20241218133452.png)
 
 For applications on ECS, since you can [dynamically embed environment variables from Secrets Manager](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/secrets-envvar-secrets-manager.html), a configuration like the following might work (without directly updating task definitions):
 
-![](./images/diagram2_final.png)
+![](./images/20241218133511.png)
 
 The advantage of this approach is that, from Prisma's perspective, the database URL string is a static string obtained from an environment variable, so the experience is exactly the same as conventional usage.
 
