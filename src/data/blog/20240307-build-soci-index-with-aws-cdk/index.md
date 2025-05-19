@@ -39,14 +39,9 @@ According to this post, SOCI is particularly effective for larger images (25% sp
 
 > I did a few quick experiments on SOCI support for Fargate / ECR, comparing the gains for different image sizes.
 >
-> tl;dr – for big images, this is a huge win. For small images it doesn't make much of a difference.
->
-> Performance  
-> One thing upfront: Several places, including the quoted… <https://t.co/beq9yaJ56F>
->
-> — Apparent Order (@apparentorder) [July 18, 2023](https://twitter.com/apparentorder/status/1681321222225928193?ref_src=twsrc%5Etfw)
+> — Apparent Order (@apparentorder) [July 18, 2023](https://x.com/apparentorder/status/1681321222225928193)
 
-To use this feature, you need to build a SOCI index for your container image and push it to the same ECR repository. There are primarily two methods available, each with their own characteristics [^1]:
+To use this feature, you need to build a SOCI index for your container image and push it to the same ECR repository. There are primarily two methods available, each with their own characteristics:
 
 1. Using the [soci-snapshotter CLI](https://github.com/awslabs/soci-snapshotter)
    - ✅ Simple CLI interface that's easy to integrate with other pipelines
@@ -145,4 +140,3 @@ SOCI indexes were discussed at yesterday's JAWS container branch meeting, which 
 >
 > — takahash (@\_takahash) [March 7, 2024](https://twitter.com/_takahash/status/1765693886956220593?ref_src=twsrc%5Etfw)
 
-[^1]: The aws-samples/aws-fargate-seekable-oci-toolbox repository is also a helpful reference.
