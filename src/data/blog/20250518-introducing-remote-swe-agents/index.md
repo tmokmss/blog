@@ -13,11 +13,13 @@ tags:
 description: Self-host AI SWE agents with Devin or Codex like experience in your AWS account.
 ---
 
-The landscape of software development is rapidly evolving with the emergence of cloud-based, asynchronous AI coding agents. OpenAI recently launched [Codex](https://openai.com/index/introducing-codex/), a cloud-based software engineering agent that can work on multiple tasks in parallel, each in its own isolated sandbox environment. [Devin](https://devin.ai/) is also a similar SaaS that have existed long before Codex and has a more powerful and sophisticated feature set, and is especially popular in Japan, with [a recent study session](https://findy.connpass.com/event/344270/) exceeding 1,000 participants. In this article, I will introduce a self-hosted solution that my team members and I have developed to achieve similar asynchronous, cloud-based functionality.
+The landscape of software development is rapidly evolving with the emergence of cloud-based, asynchronous AI coding agents. OpenAI recently launched [Codex](https://openai.com/index/introducing-codex/), a cloud-based software engineering agent that can work on multiple tasks in parallel, each in its own isolated sandbox environment. [Devin](https://devin.ai/) is also a similar SaaS that have existed long before Codex and has a more powerful and sophisticated feature set, and is especially popular in Japan, with [a recent study session](https://findy.connpass.com/event/344270/) exceeding 1,000 participants.
+
+In this article, I will introduce a self-hosted solution that my team members and I have developed to achieve similar asynchronous, cloud-based AI agent functionality.
 
 ## What is this?
 
-I've released the source code (IaC + Agent + Slack Bolt app) for Remote SWE Agents:
+I've released the source code (IaC + Agent + Slack Bolt app) for Remote SWE Agents in the public repository:
 
 [aws-samples/remote-swe-agents: Autonomous SWE agent working in the cloud!](https://github.com/aws-samples/remote-swe-agents)
 
