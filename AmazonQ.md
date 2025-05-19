@@ -43,3 +43,8 @@ pnpm run dev
 ```
 
 And then you can open `http://localhost:4321/blog/` to access the preview page.
+
+## Things to consider when you write/translate an article
+
+* The markdown code block("```") should prefix the code type for syntax highlight. (e.g. js, ts, py, dockerfile, etc.)
+* Image block should contain alt text (e.g. `![image description](./images/foo.png)`.)

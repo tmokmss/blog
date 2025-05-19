@@ -13,6 +13,7 @@ tags:
   - Architecture
   - CDK
   - Lambda
+  - Aurora
 description: An updated cost-effective and scalable serverless web application architecture on AWS.
 ---
 

@@ -1,16 +1,17 @@
 ---
 author: Masashi Tomooka
 pubDatetime: 2024-12-18T14:00:00Z
-modDatetime: 2025-05-18T08:00:00Z
+modDatetime: 2024-12-18T14:00:00Z
 title: Using Aurora DSQL with Prisma ORM
 slug: aurora-dsql-with-prisma-orm
-featured: true
+featured: false
 draft: false
 tags:
   - AWS
   - Backend
   - Development
   - Lambda
+  - Aurora
 description: How to use Amazon Aurora DSQL, the next-generation serverless RDB, with Prisma ORM for TypeScript.
 ---
 
@@ -20,7 +21,7 @@ First, can the current version of Prisma handle DSQL?
 
 Fortunately, DSQL [achieves PostgreSQL compatibility](https://docs.aws.amazon.com/aurora-dsql/latest/userguide/working-with-postgresql-compatibility.html) in many aspects, so you can connect to it from Prisma as a PostgreSQL database. Just set `datasource.provider` to `postgresql` in your `schema.prisma`:
 
-```
+```prisma
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -29,7 +30,7 @@ datasource db {
 
 I added a simple model and confirmed that migrations and data read/write operations work properly:
 
-```
+```prisma
 model User {
   id String @id
 }
@@ -41,10 +42,10 @@ However, there was one consideration: **how to pass the environment variable `DA
 
 In DSQL, you use an [authentication token](https://docs.aws.amazon.com/aurora-dsql/latest/userguide/SECTION_authentication-token.html) (referred to as "token" below) as the password string for database connections, which is designed to be dynamically generated. Here is an example of dynamically obtaining a token and generating a database URL:
 
-```
-import { DsqlSigner } from '@aws-sdk/dsql-signer';
+```ts
+import { DsqlSigner } from "@aws-sdk/dsql-signer";
 
-const hostname = 'example.dsql.us-east-1.on.aws';
+const hostname = "example.dsql.us-east-1.on.aws";
 const signer = new DsqlSigner({
   hostname,
   expiresIn: 24 * 3600 * 7,
@@ -65,11 +66,11 @@ Here are some implementation ideas I've considered or found.
 
 This method initializes PrismaClient after dynamically setting the environment variable `DATABASE_URL`:
 
-```
-import { DsqlSigner } from '@aws-sdk/dsql-signer';
-import { PrismaClient } from '@prisma/client';
+```ts
+import { DsqlSigner } from "@aws-sdk/dsql-signer";
+import { PrismaClient } from "@prisma/client";
 
-const hostname = 'example.dsql.us-east-1.on.aws';
+const hostname = "example.dsql.us-east-1.on.aws";
 
 async function generateToken() {
   const signer = new DsqlSigner({
@@ -85,13 +86,12 @@ export const getClient = async () => {
   return new PrismaClient();
 };
 
-
-import { getClient } from './prisma';
+import { getClient } from "./prisma";
 
 const main = async () => {
   const prisma = await getClient();
   await prisma.user.findMany();
-}
+};
 ```
 
 I think this is the most straightforward approach. The drawbacks compared to conventional usage are:
@@ -106,12 +106,11 @@ I think this is the most straightforward approach. The drawbacks compared to con
 
 For reference, here's code that handles reconnections (only the `getClient` function is shown):
 
-```
+```ts
 let client: PrismaClient | undefined = undefined;
 let lastEstablieshedAt = 0;
 export const getClient = async () => {
   if (client) {
-
     if (Date.now() - lastEstablieshedAt < 1 * 3600 * 1000) {
       return client;
     } else {
@@ -128,14 +127,12 @@ export const getClient = async () => {
 
 By the way, if you can use top-level await, you can export the PrismaClient itself, making it a bit more user-friendly. However, implementing reconnections might become more challenging.
 
-```
+```ts
 const getClient = async () => {
-
   return new PrismaClient();
 };
 
-
-import { prisma } from './prisma.mts';
+import { prisma } from "./prisma.mts";
 export const prisma = await getClient();
 ```
 
@@ -170,7 +167,7 @@ Nevertheless, the simplicity of the application-side implementation is certainly
 
 In Prisma for PostgreSQL, you can [replace the DB driver with node-postgres (pg)](https://www.prisma.io/docs/orm/overview/databases/postgresql#using-the-node-postgres-driver) instead of using Prisma's built-in driver. With node-postgres, you can specify an async function as the password, allowing for a straightforward implementation:
 
-```
+```ts
 generator client {
   provider = "prisma-client-js"
 
