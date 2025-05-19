@@ -2,11 +2,11 @@
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
 import "@/styles/global.css";
-import { joinPaths } from "node_modules/astro/dist/core/path";
+import { relativeToAbsolutePath } from "@/utils/getPath";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const url = (path: string) => {
-  return new URL(joinPaths(import.meta.env.BASE_URL, path), Astro.site);
+  return new URL(relativeToAbsolutePath(path), Astro.site);
 };
 
 export interface Props {
@@ -26,7 +26,7 @@ const {
   author = SITE.author,
   profile = SITE.profile,
   description = SITE.desc,
-  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
+  ogImage = "/og.png",
   canonicalURL = url("/"),
   pubDatetime,
   modDatetime,
@@ -70,10 +70,14 @@ const structuredData = {
       gtag("config", "G-1BPQG9WB5B");
     </script>
 
-    <base href={import.meta.env.BASE_URL} />
+    <!-- <base href={import.meta.env.BASE_URL} /> -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={relativeToAbsolutePath("favicon.svg")}
+    />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -82,7 +86,7 @@ const structuredData = {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
-    <link rel="sitemap" href="./sitemap-index.xml" />
+    <link rel="sitemap" href={relativeToAbsolutePath("sitemap-index.xml")} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />

@@ -1,7 +1,6 @@
 ---
 author: Masashi Tomooka
 pubDatetime: 2025-05-17T08:00:00Z
-modDatetime: 2025-05-17T08:00:00Z
 title: Serverless Full-stack Web Application Architecture in 2025
 slug: serverless-fullstack-webapp-architecture-2025
 featured: true

@@ -15,7 +15,6 @@ You can add a blog article with the following steps:
 ---
 author: Masashi Tomooka
 pubDatetime: 2025-05-18T08:00:00Z
-modDatetime: 2025-03-22T06:25:46.734Z
 title: Introducing Remote SWE Agents, a cloud based coding AI agent
 slug: introducing-remote-swe-agents
 featured: true
@@ -48,3 +47,4 @@ And then you can open `http://localhost:4321/blog/` to access the preview page.
 
 * The markdown code block("```") should prefix the code type for syntax highlight. (e.g. js, ts, py, dockerfile, etc.)
 * Image block should contain alt text (e.g. `![image description](./images/foo.png)`.)
+* When using footnote, Add notation like `[^1]` to where you want to add a note, and add `[^1]: bla bla` at the final part of the markdown.

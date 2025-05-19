@@ -1,7 +1,6 @@
 ---
 author: Masashi Tomooka
 pubDatetime: 2024-08-24T08:00:00Z
-modDatetime: 2024-08-24T08:00:00Z
 title: Implementing Distributed Locks with Amazon S3
 slug: distributed-lock-with-s3
 featured: true

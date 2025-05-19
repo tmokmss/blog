@@ -18,3 +18,7 @@ export function getPath(id: string, includeBase = true) {
   // Use only the slug, ignoring directory structure
   return [basePath, slug].join("/") + "/";
 }
+
+export function relativeToAbsolutePath(relativePath: string) {
+  return joinPaths(import.meta.env.BASE_URL, relativePath);
+}

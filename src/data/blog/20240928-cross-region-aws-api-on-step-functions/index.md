@@ -1,7 +1,6 @@
 ---
 author: Masashi Tomooka
 pubDatetime: 2024-09-28T20:00:00Z
-modDatetime: 2024-09-30T17:30:00Z
 title: Cross-Region AWS API Calls on Step Functions
 slug: cross-region-aws-api-on-step-functions
 featured: true

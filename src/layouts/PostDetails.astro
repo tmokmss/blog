@@ -8,7 +8,7 @@ import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
-import { getPath } from "@/utils/getPath";
+import { getPath, relativeToAbsolutePath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
@@ -134,7 +134,7 @@ const nextPost =
       {
         prevPost && (
           <a
-            href={`./posts/${prevPost.slug}`}
+            href={relativeToAbsolutePath(`posts/${prevPost.slug}/`)}
             class="flex w-full gap-1 hover:opacity-75"
           >
             <IconChevronLeft class="inline-block flex-none" />
@@ -148,7 +148,7 @@ const nextPost =
       {
         nextPost && (
           <a
-            href={`./posts/${nextPost.slug}`}
+            href={relativeToAbsolutePath(`posts/${nextPost.slug}/`)}
             class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
             <div>

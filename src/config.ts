@@ -5,7 +5,6 @@ export const SITE = {
   profile: "https://github.com/tmokmss",
   desc: "A tech blog from a Cloud enthusiast.",
   title: "tmokmss/blog",
-  ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 5,
   postPerPage: 5,
