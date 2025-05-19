@@ -3,7 +3,7 @@ layout: ../../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Welcome to my personal tech blog! I'm Masashi Tomooka, a cloud enthusiast sharing my thoughts, experiences, and learnings in the tech world.
+Welcome to my personal tech blog! I'm Masashi Tomooka, a Japanese cloud enthusiast sharing my thoughts, experiences, and learnings in the tech world.
 
 ## Disclaimer
 
@@ -12,10 +12,6 @@ This blog is my personal space for sharing knowledge and insights. All opinions,
 ## Contact
 
 If you'd like to connect or have any questions about the content on this blog, please reach out to me via [LinkedIn](https://www.linkedin.com/in/masashi-tomooka-7782a81b0/) or [X](https://x.com/tmokmss). I'm always open to discussions and feedback!
-
-## Open Source Contributions
-
-I'm passionate about open source software and have contributed to various projects. For a complete list of my OSS projects and contributions, please visit my [GitHub profile](https://github.com/tmokmss).
 
 ## Blog Focus
 
