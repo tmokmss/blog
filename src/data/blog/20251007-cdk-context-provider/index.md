@@ -243,11 +243,3 @@ I made this post a year ago, but finally came up with a decent idea.
 > — Masashi Tomooka (@tmokmss) [October 14, 2024](https://twitter.com/tmokmss/status/1845664527679156615?ref_src=twsrc%5Etfw)
 
 How do you think? Please share your opinions!
-
-## This Quarter's Mona-chan
-
-It's been 3 months since the last update 🥺 She's in her Nth egg-laying phase, and recently her wings don't close properly.
-
-![](./images/mona-chan.jpg)
-
-I removed the background with the eraser magic ✌
