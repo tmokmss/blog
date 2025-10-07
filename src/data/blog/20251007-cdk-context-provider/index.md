@@ -42,7 +42,7 @@ interface ApiServiceContext {
 }
 
 export class ApiServiceContextProvider extends Construct {
-  private static contextKey = 'apiService:context'; 
+  private static contextKey = "apiService:context";
 
   constructor(scope: Construct, id: string, props: ApiServiceContext) {
     super(scope, id);
@@ -52,7 +52,7 @@ export class ApiServiceContextProvider extends Construct {
   static getContext(scope: Construct): ApiServiceContext {
     const context = scope.node.tryGetContext(this.contextKey);
     if (!context) {
-      throw new Error('ApiServiceContextProvider is missing.');
+      throw new Error("ApiServiceContextProvider is missing.");
     }
     return context;
   }
@@ -63,7 +63,8 @@ export class ApiService extends Construct {
     super(scope, id);
 
     // Get context without going through props
-    const { logBucket, environment } = ApiServiceContextProvider.getContext(this);
+    const { logBucket, environment } =
+      ApiServiceContextProvider.getContext(this);
 
     // Implementation continues...
   }
@@ -165,13 +166,13 @@ Let's also consider the drawbacks.
 The first is readability and cognitive load. Creating a ContextProvider construct and using it as a scope to create other constructs is not a very familiar implementation pattern.
 
 ```typescript
-let context = new ApiServiceContextProvider(this, 'Default', {
-  environment: 'production',
+let context = new ApiServiceContextProvider(this, "Default", {
+  environment: "production",
   logBucket,
 });
 
 // Using context as scope
-new ApiService(context, 'UserApi', { apiName: 'user' });
+new ApiService(context, "UserApi", { apiName: "user" });
 ```
 
 In React (JSX) notation, it would look like the following, but in CDK notation, it becomes a bit complicated. I think this is a problem that can be solved with familiarity.
@@ -193,14 +194,14 @@ In React (JSX) notation, it would look like the following, but in CDK notation, 
 The second issue is using `id=Default`. Default can only be used once per scope, so it's inconvenient when creating multiple ContextProviders within the same scope.
 
 ```typescript
-const context = new ApiServiceContextProvider(this, 'Default', {
-  environment: 'production',
+const context = new ApiServiceContextProvider(this, "Default", {
+  environment: "production",
   logBucket,
 });
 
 // This would cause an ID conflict
-const context2 = new ApiServiceContextProvider(this, 'Default', {
-  environment: 'production',
+const context2 = new ApiServiceContextProvider(this, "Default", {
+  environment: "production",
   logBucket: anotherLogBucket,
 });
 ```
@@ -211,7 +212,7 @@ The third drawback is that you need to write ContextProvider definition code for
 
 ```typescript
 export class FooContextProvider extends Construct {
-  private static contextKey = 'foo:context';
+  private static contextKey = "foo:context";
 
   constructor(scope: Construct, id: string, props: FooServiceContext) {
     super(scope, id);
@@ -221,7 +222,7 @@ export class FooContextProvider extends Construct {
   static getContext(scope: Construct): FooServiceContext {
     const context = scope.node.tryGetContext(this.contextKey);
     if (!context) {
-      throw new Error('FooContextProvider is missing.');
+      throw new Error("FooContextProvider is missing.");
     }
     return context;
   }
