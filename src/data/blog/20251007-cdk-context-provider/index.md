@@ -13,8 +13,6 @@ tags:
 description: A React-inspired solution for avoiding prop drilling in deeply nested AWS CDK constructs using Context Provider pattern.
 ---
 
-This is part of the [AWS CDK Tips series](https://tmokmss.hatenablog.com/entry/aws_cdk_tips).
-
 ## Motivation
 
 In an old article, I recommended structuring CDK stacks with constructs.
