@@ -40,7 +40,7 @@ interface ApiServiceContext {
 }
 
 export class ApiServiceContextProvider extends Construct {
-  private static contextKey = "apiService:context";
+  private static contextKey = "apiService:context"; // unique value per ContextProvider class
 
   constructor(scope: Construct, id: string, props: ApiServiceContext) {
     super(scope, id);
@@ -50,7 +50,8 @@ export class ApiServiceContextProvider extends Construct {
   static getContext(scope: Construct): ApiServiceContext {
     const context = scope.node.tryGetContext(this.contextKey);
     if (!context) {
-      throw new Error("ApiServiceContextProvider is missing.");
+      // Throw a clear error to guide its usage.
+      throw new Error("You must use ApiServiceContextProvider.");
     }
     return context;
   }
@@ -147,7 +148,7 @@ The context scope is limited to the children of the ContextProvider. Also, creat
 
 #### 5. Multi-language Support
 
-Since this mechanism doesn't violate [jsii conventions](https://aws.github.io/jsii/specification/4-standard-compliance-suite/), it can be used in multi-language construct libraries.
+Since this mechanism doesn't violate [jsii compliance](https://aws.github.io/jsii/specification/4-standard-compliance-suite/), it can be used in multi-language construct libraries.
 
 ---
 
@@ -173,7 +174,7 @@ let context = new ApiServiceContextProvider(this, "Default", {
 new ApiService(context, "UserApi", { apiName: "user" });
 ```
 
-In React (JSX) notation, it would look like the following, but in CDK notation, it becomes a bit complicated. I think this is a problem that can be solved with familiarity.
+In React (JSX) notation, it would look like the following, but in CDK notation, it becomes a bit complicated. I think this is a problem that can be solved as this pattern will become more popular in the future.
 
 ```jsx
 <Stack>
@@ -189,7 +190,7 @@ In React (JSX) notation, it would look like the following, but in CDK notation, 
 </Stack>
 ```
 
-The second issue is using `id=Default`. Default can only be used once per scope, so it's inconvenient when creating multiple ContextProviders within the same scope.
+The second issue is using `id=Default`. Default can only be used once per scope, so it's inconvenient when creating multiple ContextProviders within the same scope. For example,
 
 ```typescript
 const context = new ApiServiceContextProvider(this, "Default", {
@@ -204,7 +205,7 @@ const context2 = new ApiServiceContextProvider(this, "Default", {
 });
 ```
 
-Since we're using `id=Default` solely to avoid affecting logical IDs, if you can compromise on that point, other strings work fine too. Using any short string would also be effective. Also, to avoid this situation, it's important to ensure that properties passed through ContextProvider are limited to those that don't vary much between constructs.
+Since we're using `id=Default` solely to avoid affecting logical IDs, if you can compromise on that point, other strings work fine too; using any short string would also be effective. Also, to avoid this situation, it's important to ensure that properties passed through ContextProvider are limited to those that don't vary much between constructs.
 
 The third drawback is that you need to write ContextProvider definition code for each construct. While it can be written mechanically, it's somewhat tedious. This could potentially be shared in a type-safe way if Generics were available, but under jsii constraints, it seems you can only define them statically. Since it's about 15 lines of code, I think this amount is acceptable.
 
