@@ -15,7 +15,7 @@ description: A React-inspired solution for avoiding prop drilling in deeply nest
 
 ## Motivation
 
-In an old article, I recommended structuring CDK stacks with constructs.
+In some old article, I recommended structuring CDK stacks with constructs:
 
 [tmokmss.hatenablog.com](https://tmokmss.hatenablog.com/entry/20221212/1670804620)
 
@@ -27,11 +27,11 @@ A typical prop drilling scenario
 
 To pass properties, you need interface definitions and property-passing code at each level, propagating them through parent-child-grandchild relationships, which can be quite tedious.
 
-This article proposes a method to avoid such inconvenience. Note that this is not a widely adopted approach, so I recommend discussing it with your team from a readability perspective before implementation.
+This article proposes a method to avoid such inconvenience: **Context Provider implementation pattern**. Note that this is not a widely adopted approach, so I recommend discussing it with your team from a readability perspective before implementation.
 
 ## Proposed Method
 
-Let me first show the concept with a code example:
+What does Context Provider look like? Let me first show the concept with a code example:
 
 ```typescript
 interface ApiServiceContext {
