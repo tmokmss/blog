@@ -18,10 +18,10 @@ This is part of the [AWS CDK Tips series](https://tmokmss.hatenablog.com/entry/a
 
 CDK has a convenient mechanism for building and deploying containers during CLI execution. However, since this container image building occurs in the CLI execution environment (locally), there can be inconveniences:
 
-* Unable to build due to different CPU architectures (x86 or arm)[^1]
-* Container building requires significant computational resources and is slow
-* Large image sizes make image pull/push operations slow
-* Want to embed information from other AWS resources (CDK tokens) into buildArgs
+- Unable to build due to different CPU architectures (x86 or arm)[^1]
+- Container building requires significant computational resources and is slow
+- Large image sizes make image pull/push operations slow
+- Want to embed information from other AWS resources (CDK tokens) into buildArgs
 
 This article introduces the `ContainerImageBuild` construct from the deploy-time-build construct library to solve the above problems.
 
@@ -36,17 +36,17 @@ A picture is worth a thousand words, so let me first show you how to use it.
 If you're currently using [`DockerImageAsset`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ecr_assets.DockerImageAsset.html) in your code, you can replace it as a drop-in replacement by just changing the class name.
 
 ```typescript
-const asset = new DockerImageAsset(this, 'MyBuildImage', {
-  directory: path.join(__dirname, 'my-image'),
+const asset = new DockerImageAsset(this, "MyBuildImage", {
+  directory: path.join(__dirname, "my-image"),
   buildArgs: {
-    HTTP_PROXY: 'http://10.20.30.2:1234',
+    HTTP_PROXY: "http://10.20.30.2:1234",
   },
 });
 
-const image = new ContainerImageBuild(this, 'MyBuildImage', {
-  directory: path.join(__dirname, 'my-image'),
+const image = new ContainerImageBuild(this, "MyBuildImage", {
+  directory: path.join(__dirname, "my-image"),
   buildArgs: {
-    HTTP_PROXY: 'http://10.20.30.2:1234',
+    HTTP_PROXY: "http://10.20.30.2:1234",
   },
 });
 ```
@@ -72,13 +72,13 @@ const image = new ContainerImageBuild(this, 'MyBuildImage', {
 When using with Lambda's [DockerImageFunction construct](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.DockerImageFunction.html), you can easily use it with the `toLambdaDockerImageCode` function.
 
 ```typescript
-import { ContainerImageBuild } from 'deploy-time-build';
+import { ContainerImageBuild } from "deploy-time-build";
 
-const image = new ContainerImageBuild(this, 'Image', { 
-    directory: 'example-image', 
+const image = new ContainerImageBuild(this, "Image", {
+  directory: "example-image",
 });
-new DockerImageFunction(this, 'Function', {
-    code: image.toLambdaDockerImageCode(),
+new DockerImageFunction(this, "Function", {
+  code: image.toLambdaDockerImageCode(),
 });
 ```
 
@@ -87,12 +87,11 @@ new DockerImageFunction(this, 'Function', {
 Similarly, when using with ECS, the `toEcsDockerImageCode` function makes it easy.
 
 ```typescript
-const image = new ContainerImageBuild(this, 'Image', {
-    directory: 'example-image',
+const image = new ContainerImageBuild(this, "Image", {
+  directory: "example-image",
 });
-new FargateTaskDefinition(this, 'TaskDefinition', { 
-}).addContainer('main', {
-    image: image.toEcsDockerImageCode(),
+new FargateTaskDefinition(this, "TaskDefinition", {}).addContainer("main", {
+  image: image.toEcsDockerImageCode(),
 });
 ```
 
@@ -102,21 +101,21 @@ Beyond ECS/Lambda, there are other AWS services that use container images. In th
 However, note that in this case, you need to explicitly grant read permissions to the repository for the consuming side.
 
 ```typescript
-const image = new ContainerImageBuild(this, 'Image', {
-    directory: 'example-image',
-    platform: Platform.LINUX_ARM64,
+const image = new ContainerImageBuild(this, "Image", {
+  directory: "example-image",
+  platform: Platform.LINUX_ARM64,
 });
 
-new CfnResource(this, 'AgentRuntime', {
-  type: 'AWS::BedrockAgentCore::Runtime',
+new CfnResource(this, "AgentRuntime", {
+  type: "AWS::BedrockAgentCore::Runtime",
   properties: {
     RoleArn: runtimeRole.roleArn,
     AgentRuntimeArtifact: {
       ContainerConfiguration: {
-        ContainerUri: image.imageUri
-      }
-    }
-  }
+        ContainerUri: image.imageUri,
+      },
+    },
+  },
 });
 
 image.repository.grantPull(runtimeRole);
@@ -132,9 +131,9 @@ ContainerImageBuild works using the mechanism shown in the diagram below. It pac
 
 ContainerImageBuild has several other features:
 
-* Specify destination ECR repository (repository property)
-* Specify image tag and tag prefix when pushing (tag, tagPrefix properties)
-* Enable zstd compression for images [Reference](https://aws.amazon.com/jp/blogs/news/reducing-aws-fargate-startup-times-with-zstd-compressed-container-images/)
+- Specify destination ECR repository (repository property)
+- Specify image tag and tag prefix when pushing (tag, tagPrefix properties)
+- Enable zstd compression for images [Reference](https://aws.amazon.com/jp/blogs/news/reducing-aws-fargate-startup-times-with-zstd-compressed-container-images/)
 
 Compared to regular DockerImageAsset, it aims to be functionally superior, so I believe there are many convenient aspects to using it.
 
