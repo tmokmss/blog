@@ -14,8 +14,6 @@ tags:
 description: Introducing deploy-time-build library's ContainerImageBuild construct to solve container image building challenges in AWS CDK.
 ---
 
-This is part of the [AWS CDK Tips series](https://tmokmss.hatenablog.com/entry/aws_cdk_tips).
-
 CDK has a convenient mechanism for building and deploying containers during CLI execution. However, since this container image building occurs in the CLI execution environment (locally), there can be inconveniences:
 
 - Unable to build due to different CPU architectures (x86 or arm)[^1]
@@ -25,7 +23,7 @@ CDK has a convenient mechanism for building and deploying containers during CLI 
 
 This article introduces the `ContainerImageBuild` construct from the deploy-time-build construct library to solve the above problems.
 
-[https://github.com/tmokmss/deploy-time-build](https://github.com/tmokmss/deploy-time-build)
+https://github.com/tmokmss/deploy-time-build
 
 ## How to Use
 
@@ -42,7 +40,7 @@ const asset = new DockerImageAsset(this, "MyBuildImage", {
     HTTP_PROXY: "http://10.20.30.2:1234",
   },
 });
-
+// ↓ becomes
 const image = new ContainerImageBuild(this, "MyBuildImage", {
   directory: path.join(__dirname, "my-image"),
   buildArgs: {
@@ -123,13 +121,13 @@ image.repository.grantPull(runtimeRole);
 
 ## How It Works
 
-ContainerImageBuild works using the mechanism shown in the diagram below. It packages a configuration that triggers CodeBuild during CFn deployment as a CDK construct and provides it with a nice API wrapper.
+`ContainerImageBuild` works using the mechanism shown in the diagram below. It packages a configuration that triggers CodeBuild during CFn deployment as a CDK construct and provides it with a nice API wrapper.
 
 ![Container Image Build Architecture](./images/container-image-build-architecture.png)
 
 ## Other Features
 
-ContainerImageBuild has several other features:
+`ContainerImageBuild` has several other features:
 
 - Specify destination ECR repository (repository property)
 - Specify image tag and tag prefix when pushing (tag, tagPrefix properties)
@@ -139,15 +137,15 @@ Compared to regular DockerImageAsset, it aims to be functionally superior, so I 
 
 ## Disadvantages
 
-Let me also mention the drawbacks of ContainerImageBuild. The biggest disadvantage is that CDK deployments can become slower in some cases.
+Let me also mention the drawbacks of `ContainerImageBuild`. The biggest disadvantage is that CDK deployments can become slower in some cases.
 
 In local environments, Docker's layer cache is available, so when cache can be properly utilized, second and subsequent deployments are relatively fast.
 
-On the other hand, with ContainerImageBuild, due to CodeBuild's nature, the cache often evaporates with each build execution, requiring time equivalent to a full build each time. Therefore, it may not be suitable for cases where you frequently deploy while changing code, such as during development verification.
+On the other hand, with `ContainerImageBuild`, due to CodeBuild's nature, the cache often evaporates with each build execution, requiring time equivalent to a full build each time. Therefore, it may not be suitable for cases where you frequently deploy while changing code, such as during development verification.
 
-This problem can be improved by using the CodeBuild Docker Server feature that went GA in May 2025. ContainerImageBuild doesn't yet support this as an official API, but there's a workaround using escape hatches [documented here](https://github.com/tmokmss/deploy-time-build/issues/41#issuecomment-3305037617). However, please note that as of October 2025, Arm builds are not yet supported, so it cannot be used in all cases.
+This problem can be improved by using the CodeBuild Docker Server feature that went GA in May 2025. `ContainerImageBuild` doesn't yet support this as an official API, but there's a workaround using escape hatches [documented here](https://github.com/tmokmss/deploy-time-build/issues/41#issuecomment-3305037617). However, please note that as of October 2025, Arm builds are not yet supported, so it cannot be used in all cases.
 
-[https://aws.amazon.com/jp/blogs/news/accelerate-ci-cd-pipelines-with-the-new-aws-codebuild-docker-server-capability/](https://aws.amazon.com/jp/blogs/news/accelerate-ci-cd-pipelines-with-the-new-aws-codebuild-docker-server-capability/)
+[Accelerate CI/CD pipelines with the new AWS CodeBuild Docker Server capability | AWS News Blog](https://aws.amazon.com/jp/blogs/aws/accelerate-ci-cd-pipelines-with-the-new-aws-codebuild-docker-server-capability/)
 
 Since container images can often be run locally as well, I also recommend doing fast iterations locally.
 
@@ -155,7 +153,7 @@ Since container images can often be run locally as well, I also recommend doing 
 
 With the GA of AgentCore Runtime and other developments, I felt there was increased demand for cross-platform building, so I compiled this into an article.
 
-I've been dogfooding ContainerImageBuild myself in the development of several assets ([example 1](https://github.com/aws-samples/remote-swe-agents/blob/10242ba22566f343c173bc7de25b9845d043064f/cdk/lib/constructs/webapp.ts#L59-L78), [example 2](https://github.com/aws-samples/sample-serverless-nova-sonic-chat/blob/e09f34f279def0d404075ac3e62a1f64be9a6b44/cdk/lib/constructs/service.ts#L36-L52)) and it has been running stably without any particular issues.
+I've been dogfooding `ContainerImageBuild` myself in the development of several assets ([example 1](https://github.com/aws-samples/remote-swe-agents/blob/10242ba22566f343c173bc7de25b9845d043064f/cdk/lib/constructs/webapp.ts#L59-L78), [example 2](https://github.com/aws-samples/sample-serverless-nova-sonic-chat/blob/e09f34f279def0d404075ac3e62a1f64be9a6b44/cdk/lib/constructs/service.ts#L36-L52)) and it has been running stably without any particular issues.
 
 I think there are many situations where using it can make things easier, so please give it a try!
 
