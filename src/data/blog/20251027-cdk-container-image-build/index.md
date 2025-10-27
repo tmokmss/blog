@@ -3,7 +3,7 @@ author: Masashi Tomooka
 pubDatetime: 2025-10-27T09:00:00Z
 title: Building Container Images with AWS CDK - Introducing deploy-time-build
 slug: cdk-container-image-build
-featured: false
+featured: true
 draft: false
 tags:
   - AWS
@@ -95,7 +95,7 @@ new FargateTaskDefinition(this, "TaskDefinition", {}).addContainer("main", {
 
 ### Using Container Images with Other Constructs
 
-Beyond ECS/Lambda, there are other AWS services that use container images. In those cases, you can use properties like `image.imageUri`.
+Other than ECS/Lambda, there are other AWS services that use container images. In those cases, you can use properties like `image.imageUri`.
 However, note that in this case, you need to explicitly grant read permissions to the repository for the consuming side.
 
 ```typescript
@@ -121,7 +121,7 @@ image.repository.grantPull(runtimeRole);
 
 ## How It Works
 
-`ContainerImageBuild` works using the mechanism shown in the diagram below. It packages a configuration that triggers CodeBuild during CFn deployment as a CDK construct and provides it with a nice API wrapper.
+`ContainerImageBuild` works using the mechanism shown in the diagram below. It encapusulates a frequent implementation pattern that triggers CodeBuild during CFn deployment as a CDK construct with a nice API.
 
 ![Container Image Build Architecture](./images/container-image-build-architecture.png)
 
@@ -131,7 +131,7 @@ image.repository.grantPull(runtimeRole);
 
 - Specify destination ECR repository (repository property)
 - Specify image tag and tag prefix when pushing (tag, tagPrefix properties)
-- Enable zstd compression for images [Reference](https://aws.amazon.com/jp/blogs/news/reducing-aws-fargate-startup-times-with-zstd-compressed-container-images/)
+- Enable zstd compression for images ([reference](https://aws.amazon.com/blogs/containers/reducing-aws-fargate-startup-times-with-zstd-compressed-container-images/))
 
 Compared to regular DockerImageAsset, it aims to be functionally superior, so I believe there are many convenient aspects to using it.
 
